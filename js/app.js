@@ -44,13 +44,21 @@ Player.prototype.render = function () {
 
 Player.prototype.handleInput = function (key) {
     if(key === 'left') {
-        this.x -= 100;
+        if(this.x > 0) {
+            this.x -= 100;
+        }
     } else if (key === 'up') {
-        this.y -= 85;
+        if(this.y > 0) {
+            this.y -= 85;
+        }
     } else if(key === 'right') {
-        this.x += 100;
+        if(this.x < 400) {
+            this.x += 100;
+        }
     } else if(key === 'down') {
-        this.y += 85;
+        if(this.y < 400) {
+            this.y += 85;
+        }
     }
 };
 
@@ -82,6 +90,7 @@ document.addEventListener('keyup', function(e) {
 
 
 //// TODO:
-//// - Spieler darf das Spielfeld (Canvas) nicht verlassen
-//// -
+//// - Bugs müssen von links nach rechts auf das Spielfeld laufen
+//// - Bei Kontakt des Spielers mit den Bugs muss er auf die Startposition zurück gesetzt werden
+//// - Schafft der Spieler es bis ins Wasser muss er auf die Startposition zurück gesetzt werden
 
