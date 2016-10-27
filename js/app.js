@@ -15,6 +15,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    (this.x++)*dt;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -35,7 +36,9 @@ var Player = function(name, x, y, char) {
 };
 
 Player.prototype.update = function() {
-
+    if(this.y === -25) {
+        this.y = 400;
+    }
 };
 
 Player.prototype.render = function () {
@@ -50,9 +53,6 @@ Player.prototype.handleInput = function (key) {
     } else if (key === 'up') {
         if(this.y > 0) {
             this.y -= 85;
-        }
-        if(this.y === -25) {
-            this.y = 400;
         }
     } else if(key === 'right') {
         if(this.x < 400) {
@@ -72,7 +72,7 @@ Player.prototype.handleInput = function (key) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [new Enemy(20,20), new Enemy(40,40), new Enemy(60,60)];
+var allEnemies = [new Enemy(0, 60), new Enemy(0, 140), new Enemy(0, 225)];
 var player = new Player("Mario", 200, 400);
 console.log('player', player);
 
@@ -95,5 +95,4 @@ document.addEventListener('keyup', function(e) {
 //// TODO:
 //// - Bugs müssen von links nach rechts auf das Spielfeld laufen
 //// - Bei Kontakt des Spielers mit den Bugs muss er auf die Startposition zurück gesetzt werden
-//// - Schafft der Spieler es bis ins Wasser muss er auf die Startposition zurück gesetzt werden
 
