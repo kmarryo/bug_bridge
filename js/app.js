@@ -1,8 +1,8 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(loc) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
+    this.loc = loc;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -17,7 +17,7 @@ Enemy.prototype.update = function(dt) {
 };
 
 // Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
+Enemy.prototype.render = function(x, y) {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -25,11 +25,34 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
+var Player = function(name, x, y, char) {
+    this.name = name;
+    this.x = x;
+    this.y = y;
+    this.char = char;
+    this.sprite = 'images/char-boy.png';
+};
+
+Player.prototype.update = function() {
+
+};
+
+Player.prototype.render = function () {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Player.prototype.handleInput = function () {
+
+};
+
+//var playerName = prompt("Hi! How is your name?");
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [new Enemy(), new Enemy(), new Enemy()];
+var player = new Player("Mario", 200, 400);
+console.log('player', player);
 
 
 // This listens for key presses and sends the keys to your
