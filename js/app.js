@@ -51,6 +51,9 @@ Player.prototype.handleInput = function (key) {
         if(this.y > 0) {
             this.y -= 85;
         }
+        if(this.y === -25) {
+            this.y = 400;
+        }
     } else if(key === 'right') {
         if(this.x < 400) {
             this.x += 100;
