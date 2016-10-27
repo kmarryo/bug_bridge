@@ -16,7 +16,13 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     (this.x++)*dt;
+    if(this.x > 500) {
+        this.x = -100;
+    }
 };
+
+console.log('Enemy.prototype.update.x', Enemy.x);
+
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -36,9 +42,18 @@ var Player = function(name, x, y, char) {
 };
 
 Player.prototype.update = function() {
-    if(this.y === -25) {
+    if(this.y <= 0) {
         this.y = 400;
     }
+    // for(var i=0; i < allEnemies.length; i++) {
+    //     var distance = this.x - allEnemies[i].x;
+    //     if(distance < 35) {
+    //         this.x = 200;
+    //         this.y = 400;
+    //     }
+        //console.log('allEnemies[i]', allEnemies[i]);
+        
+    //}
 };
 
 Player.prototype.render = function () {
@@ -72,7 +87,7 @@ Player.prototype.handleInput = function (key) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [new Enemy(0, 60), new Enemy(0, 140), new Enemy(0, 225)];
+var allEnemies = [new Enemy(-50, 60), new Enemy(-900, 60), new Enemy(-720, 145), new Enemy(-375, 140), new Enemy(-100, 230)];
 var player = new Player("Mario", 200, 400);
 console.log('player', player);
 
