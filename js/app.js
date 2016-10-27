@@ -1,8 +1,9 @@
 // Enemies our player must avoid
-var Enemy = function(loc) {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.loc = loc;
+    this.x = x;
+    this.y = y;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -17,7 +18,7 @@ Enemy.prototype.update = function(dt) {
 };
 
 // Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function(x, y) {
+Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -41,16 +42,26 @@ Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function () {
-
+Player.prototype.handleInput = function (key) {
+    if(key === 'left') {
+        this.x -= 100;
+    } else if (key === 'up') {
+        this.y -= 85;
+    } else if(key === 'right') {
+        this.x += 100;
+    } else if(key === 'down') {
+        this.y += 85;
+    }
 };
+
+
 
 //var playerName = prompt("Hi! How is your name?");
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [new Enemy(), new Enemy(), new Enemy()];
+var allEnemies = [new Enemy(20,20), new Enemy(40,40), new Enemy(60,60)];
 var player = new Player("Mario", 200, 400);
 console.log('player', player);
 
@@ -67,3 +78,10 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
+
+//// TODO:
+//// - Spieler darf das Spielfeld (Canvas) nicht verlassen
+//// -
+
