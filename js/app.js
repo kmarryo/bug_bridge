@@ -87,10 +87,10 @@ Gem.prototype.update = function () {
     var diff_x = this.x - player.x;
     var diff_y = this.y - player.y;
     if(diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
-        this.remove();
         player.score += 100;
+        // this.x = Math.floor(Math.random() * (400 +1));
+        // this.y = Math.floor(Math.random() * (400 +1));
     }
-    // this.y = 200;
 };
 
 Gem.prototype.render = function () {
