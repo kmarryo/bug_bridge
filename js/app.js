@@ -20,10 +20,11 @@ Enemy.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var Player = function (x, y) {
+var Player = function (x, y, score) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/char-boy.png';
+    this.score = score;
 };
 
 Player.prototype.update = function () {
@@ -76,8 +77,30 @@ Player.prototype.handleInput = function (key) {
     }
 };
 
+var Gem = function (x, y) {
+    this.x = x;
+    this.y = y;
+    this.sprite = 'images/Gem Blue.png';
+};
+
+Gem.prototype.update = function () {
+    var diff_x = this.x - player.x;
+    var diff_y = this.y - player.y;
+    if(diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
+        this.remove();
+        player.score += 100;
+    }
+    // this.y = 200;
+};
+
+Gem.prototype.render = function () {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+var gem = new Gem(Math.floor(Math.random() * (400 +1)), Math.floor(Math.random() * (400 +1)));
+
 var allEnemies = [new Enemy(-50, 60), new Enemy(-900, 60), new Enemy(-720, 145), new Enemy(-375, 145), new Enemy(-100, 230)];
-var player = new Player(200, 400);
+var player = new Player(200, 400, 0);
 
 
 document.addEventListener('keyup', function (e) {
