@@ -93,7 +93,7 @@ Player.prototype.handleInput = function (key) {
 var Gem = function () {
     this.x = Math.floor(Math.random() * (400 + 1));
     this.y = Math.floor(Math.random() * (400 + 1));
-    this.sprite = 'images/Gem Blue.png';
+    this.sprite = pickColor();
 };
 
 Gem.prototype.update = function () {
@@ -102,14 +102,27 @@ Gem.prototype.update = function () {
     if (diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
         player.score += 100;
         this.x = undefined;
-        // this.x = Math.floor(Math.random() * (400 +1));
-        // this.y = Math.floor(Math.random() * (400 +1));
     }
 };
 
 Gem.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+// Function for creating random colored gems
+function pickColor() {
+    // Object with all gem colors
+    var gemColors = {
+        "blue": "images/Gem Blue.png",
+        "green": "images/Gem Green.png",
+        "orange": "images/Gem Orange.png"
+    }
+    // Creates an array of keys from the gemColors object
+    var colorArray = Object.keys(gemColors);
+    // Picks random one key of the array
+    var randomColor = colorArray[ Math.floor(Math.random()*colorArray.length) ];
+    return gemColors[randomColor];
+}
 
 var gem = [new Gem()];
 
@@ -126,4 +139,5 @@ document.addEventListener('keyup', function (e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
 
