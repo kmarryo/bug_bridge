@@ -1,3 +1,4 @@
+var hitCounter = 0;
 // Enemies our player must avoid
 var Enemy = function (x, y) {
     this.x = x;
@@ -27,20 +28,21 @@ var Player = function (x, y, score) {
     this.score = score;
 };
 
+
 Player.prototype.update = function () {
     // Sets player back to starting point when he reaches the water
     if (this.y <= 0) {
         this.x = 200;
         this.y = 400;
         console.log('case');
-        gem.push(new Gem(Math.floor(Math.random() * (400 +1)), Math.floor(Math.random() * (400 +1))));
+        gem.push(new Gem(Math.floor(Math.random() * (400 + 1)), Math.floor(Math.random() * (400 + 1))));
     }
     // diff_x = distance between bug and player
     var hit = false, hit_x, hit_y, diff_x;
     for (var i = 0; i < allEnemies.length; i++) {
         diff_x = this.x - allEnemies[i].x;
         hit_x = allEnemies[i].x > 0 && diff_x < 60 && diff_x > -45;
-        hit_y= allEnemies[i].y > 0 && this.y == allEnemies[i].y;
+        hit_y = allEnemies[i].y > 0 && this.y == allEnemies[i].y;
 
         if (hit_x && hit_y) {
             hit = true;
@@ -52,6 +54,13 @@ Player.prototype.update = function () {
     if (hit) {
         this.x = 200;
         this.y = 400;
+        console.log(hit, 'hit');
+        hitCounter++;
+        console.log(hitCounter);
+        var gameOver = hitCounter > 2;
+        if (gameOver) {
+            console.log('game over');
+        }
     }
 };
 
@@ -81,17 +90,16 @@ Player.prototype.handleInput = function (key) {
 };
 
 
-
-var Gem = function (x, y) {
-    this.x = Math.floor(Math.random() * (400 +1));
-    this.y = Math.floor(Math.random() * (400 +1));
+var Gem = function () {
+    this.x = Math.floor(Math.random() * (400 + 1));
+    this.y = Math.floor(Math.random() * (400 + 1));
     this.sprite = 'images/Gem Blue.png';
 };
 
 Gem.prototype.update = function () {
     var diff_x = this.x - player.x;
     var diff_y = this.y - player.y;
-    if(diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
+    if (diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
         player.score += 100;
         this.x = undefined;
         // this.x = Math.floor(Math.random() * (400 +1));
