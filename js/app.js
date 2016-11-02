@@ -30,7 +30,10 @@ var Player = function (x, y, score) {
 Player.prototype.update = function () {
     // Sets player back to starting point when he reaches the water
     if (this.y <= 0) {
+        this.x = 200;
         this.y = 400;
+        console.log('case');
+        gem.push(new Gem(Math.floor(Math.random() * (400 +1)), Math.floor(Math.random() * (400 +1))));
     }
     // diff_x = distance between bug and player
     var hit = false, hit_x, hit_y, diff_x;
@@ -77,9 +80,11 @@ Player.prototype.handleInput = function (key) {
     }
 };
 
+
+
 var Gem = function (x, y) {
-    this.x = x;
-    this.y = y;
+    this.x = Math.floor(Math.random() * (400 +1));
+    this.y = Math.floor(Math.random() * (400 +1));
     this.sprite = 'images/Gem Blue.png';
 };
 
@@ -88,6 +93,7 @@ Gem.prototype.update = function () {
     var diff_y = this.y - player.y;
     if(diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
         player.score += 100;
+        this.x = undefined;
         // this.x = Math.floor(Math.random() * (400 +1));
         // this.y = Math.floor(Math.random() * (400 +1));
     }
@@ -97,11 +103,10 @@ Gem.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var gem = new Gem(Math.floor(Math.random() * (400 +1)), Math.floor(Math.random() * (400 +1)));
+var gem = [new Gem()];
 
 var allEnemies = [new Enemy(-50, 60), new Enemy(-900, 60), new Enemy(-720, 145), new Enemy(-375, 145), new Enemy(-100, 230)];
 var player = new Player(200, 400, 0);
-
 
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {
