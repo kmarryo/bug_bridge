@@ -65,7 +65,9 @@ Player.prototype.update = function () {
             console.log('game over');
         }
     }
-    $("#score").text(player.score);
+    // Formats the player score
+    var _playerScore = numeral(player.score).format('0,0');
+    $("#score").text('Score: ' + _playerScore);
 };
 
 Player.prototype.render = function () {
