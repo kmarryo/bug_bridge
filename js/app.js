@@ -1,9 +1,10 @@
 var hitCounter = 0;
 // Enemies our player must avoid
-var Enemy = function (x, y) {
+var Enemy = function (x, y, speed) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/enemy-bug.png';
+    this.speed = speed;
 };
 
 // Update the enemy's position, required method for game
@@ -51,7 +52,6 @@ Player.prototype.update = function () {
             hit = true;
             break;
         }
-
     }
     // Sets player back when he is hit by a bug
     if (hit) {
@@ -65,6 +65,7 @@ Player.prototype.update = function () {
             console.log('game over');
         }
     }
+    $("#score").text(player.score);
 };
 
 Player.prototype.render = function () {
@@ -145,4 +146,3 @@ document.addEventListener('keyup', function (e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
