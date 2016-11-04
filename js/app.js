@@ -21,11 +21,11 @@ Enemy.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var Player = function (x, y, score) {
+var Player = function (x, y) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/char-boy.png';
-    this.score = score;
+    this.score = 0;
 };
 
 
@@ -34,11 +34,10 @@ Player.prototype.update = function () {
     if (this.y <= 0) {
         this.x = 200;
         this.y = 400;
-        console.log('case');
+        this.score += 200;
         // Adds 1 Gem to the screen when no other gem already exists
         if(gem.length === 0) {
             gem.push(new Gem());
-        console.log('gem.length', gem.length);
         }
     }
     // diff_x = distance between bug and player
@@ -105,7 +104,7 @@ Gem.prototype.update = function () {
     var diff_x = this.x - player.x;
     var diff_y = this.y - player.y;
     if (diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
-        player.score += 100;
+        player.score += 250;
         if(gem.length > 0) {
             gem.pop();
         }
@@ -134,7 +133,7 @@ function pickColor() {
 var gem = [new Gem()];
 
 var allEnemies = [new Enemy(-50, 60), new Enemy(-900, 60), new Enemy(-720, 145), new Enemy(-375, 145), new Enemy(-100, 230)];
-var player = new Player(200, 400, 0);
+var player = new Player(200, 400);
 
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {
@@ -146,9 +145,4 @@ document.addEventListener('keyup', function (e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-for (var i = 0; i < gem.length; i++) {
-    console.log('gem[i].x', gem[i].x);
-    
-}
 

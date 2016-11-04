@@ -7,11 +7,9 @@ For detailed instructions on how to get started, check out this [guide](https://
 
 
 ## TODO: 
-- Add gems with random position
-- Bigger Playfield
 - add score
-- increase score when player reaches water or catches gem
 - add speed to bugs
 - give player lifes and decrease them when he is hit by bug
 - let player choose between different characters
 - show score when player dies
+- creates stone in random position
