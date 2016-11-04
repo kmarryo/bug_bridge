@@ -1,5 +1,4 @@
-var hitCounter = 0;
-
+$(".overlay").hide();
 
 /*****************************
  ******************************
@@ -46,6 +45,7 @@ var Player = function (x, y) {
     this.score = 0;
 };
 
+var hitCounter = 0;
 
 Player.prototype.update = function () {
     // Sets player back to starting point when he reaches the water
@@ -76,10 +76,13 @@ Player.prototype.update = function () {
         this.y = 400;
         console.log(hit, 'hit');
         hitCounter++;
+        console.log('hitCounter', hitCounter);
+        
         console.log(hitCounter);
         var gameOver = hitCounter > 2;
         if (gameOver) {
             console.log('game over');
+            $(".overlay").show();
         }
     }
     // Formats the player score
