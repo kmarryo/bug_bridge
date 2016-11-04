@@ -1,16 +1,29 @@
 var hitCounter = 0;
+
+
+/*****************************
+ ******************************
+ CONSTRUCTOR FUNCTIONS
+ *****************************
+ *****************************/
+
+/**************************
+ENEMIES
+ **************************/
+
+
 // Enemies our player must avoid
-var Enemy = function (x, y, speed) {
+var Enemy = function (x, y) {
     this.x = x;
     this.y = y;
     this.sprite = 'images/enemy-bug.png';
-    this.speed = speed;
+    this.speed = Math.floor(Math.random()*85 + 25);
 };
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function (dt) {
-    (this.x++) * dt;
+    this.x += this.speed * dt;
     // Sets enemies back when they are out of sight
     if (this.x > 500) {
         this.x = -100;
@@ -21,6 +34,10 @@ Enemy.prototype.update = function (dt) {
 Enemy.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+/*****************************
+ PLAYER
+ *****************************/
 
 var Player = function (x, y) {
     this.x = x;
@@ -95,6 +112,10 @@ Player.prototype.handleInput = function (key) {
     }
 };
 
+
+/*****************************
+ GEMS
+ *****************************/
 
 var Gem = function () {
     // Generates Gem at random position on the stone blocks.
