@@ -7,8 +7,6 @@ For detailed instructions on how to get started, check out this [guide](https://
 
 
 ## TODO: 
-- give player lifes and decrease them when he is hit by bug
 - let player choose between different characters
-- show score when player dies
 - creates stone in random position
 - format score

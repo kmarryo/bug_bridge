@@ -23,9 +23,9 @@ var Enemy = function (y) {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function (dt) {
     this.x += this.speed * dt;
-    // Sets enemies back when they are out of sight
+    // Sets enemies back at random position when they are out of sight
     if (this.x > 500) {
-        this.x = -100;
+        this.x = Math.floor(Math.random()*-500 -50);
     }
 };
 
@@ -70,6 +70,10 @@ Player.prototype.update = function () {
             break;
         }
     }
+    // Formats the player score
+    var _playerScore = numeral(player.score).format('0,0');
+    $("#score").text('Score: ' + _playerScore);
+
     // Sets player back when he is hit by a bug
     if (hit) {
         this.x = 200;
@@ -80,14 +84,13 @@ Player.prototype.update = function () {
         
         console.log(hitCounter);
         var gameOver = hitCounter > 2;
+        // Shows Overlay and total score when player died
         if (gameOver) {
             console.log('game over');
             $(".overlay").show();
+            $("#score-total").html("Your total score: " + _playerScore)
         }
     }
-    // Formats the player score
-    var _playerScore = numeral(player.score).format('0,0');
-    $("#score").text('Score: ' + _playerScore);
 };
 
 Player.prototype.render = function () {
