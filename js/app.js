@@ -35,7 +35,11 @@ Player.prototype.update = function () {
         this.x = 200;
         this.y = 400;
         console.log('case');
-        gem.push(new Gem(Math.floor(Math.random() * (400 + 1)), Math.floor(Math.random() * (400 + 1))));
+        // Adds 1 Gem to the screen when no other gem already exists
+        if(gem.length === 0) {
+            gem.push(new Gem());
+        console.log('gem.length', gem.length);
+        }
     }
     // diff_x = distance between bug and player
     var hit = false, hit_x, hit_y, diff_x;
@@ -91,8 +95,9 @@ Player.prototype.handleInput = function (key) {
 
 
 var Gem = function () {
+    // Generates Gem at random position on the stone blocks.
     this.x = Math.floor(Math.random() * (400 + 1));
-    this.y = Math.floor(Math.random() * (400 + 1));
+    this.y = Math.floor(Math.random() * (230 - 60 + 1)) + 60;
     this.sprite = pickColor();
 };
 
@@ -101,7 +106,9 @@ Gem.prototype.update = function () {
     var diff_y = this.y - player.y;
     if (diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
         player.score += 100;
-        this.x = undefined;
+        if(gem.length > 0) {
+            gem.pop();
+        }
     }
 };
 
@@ -140,4 +147,8 @@ document.addEventListener('keyup', function (e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+for (var i = 0; i < gem.length; i++) {
+    console.log('gem[i].x', gem[i].x);
+    
+}
 
