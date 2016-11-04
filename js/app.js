@@ -13,8 +13,8 @@ ENEMIES
 
 
 // Enemies our player must avoid
-var Enemy = function (x, y) {
-    this.x = x;
+var Enemy = function (y) {
+    this.x = Math.floor(Math.random()*-500 -50);
     this.y = y;
     this.sprite = 'images/enemy-bug.png';
     this.speed = Math.floor(Math.random()*85 + 25);
@@ -156,7 +156,7 @@ function pickColor() {
 
 var gem = [new Gem()];
 
-var allEnemies = [new Enemy(-50, 60), new Enemy(-900, 60), new Enemy(-720, 145), new Enemy(-375, 145), new Enemy(-100, 230)];
+var allEnemies = [new Enemy(60), new Enemy(60), new Enemy(145), new Enemy(230)];
 var player = new Player(200, 400);
 
 document.addEventListener('keyup', function (e) {
