@@ -1,5 +1,9 @@
 $(".overlay").hide();
 
+$("#start").click(function () {
+   $("#game").load("game.html");
+});
+
 /*****************************
  ******************************
  CONSTRUCTOR FUNCTIONS
@@ -7,7 +11,7 @@ $(".overlay").hide();
  *****************************/
 
 /**************************
-ENEMIES
+ ENEMIES
  **************************/
 
 
@@ -81,7 +85,7 @@ Player.prototype.update = function () {
         console.log(hit, 'hit');
         hitCounter++;
         console.log('hitCounter', hitCounter);
-        
+
         console.log(hitCounter);
         var gameOver = hitCounter > 2;
         // Shows Overlay and total score when player died
