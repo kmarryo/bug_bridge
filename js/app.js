@@ -1,7 +1,49 @@
 $(".overlay").hide();
 
-$("#start").click(function () {
-   $("#game").load("game.html");
+// var chooseChar = $("#chars img").each().click(function () {
+//     var _char = $(this).data("char");
+//    if(_char === "boy") {
+//        player.sprite = 'images/char-boy.png';
+//    } else if(_char === "cat-girl") {
+//        console.log('cat-girl');
+//
+//        player.sprite = 'images/char-cat-girl.png';
+//    } else if(_char === "horn-girl") {
+//        player.sprite = 'images/char-horn-girl.png';
+//    } else if(_char === "pink-girl") {
+//        player.sprite = 'images/char-pink-girl.png';
+//    } else if(_char === "princess") {
+//        player.sprite = 'images/char-princess-girl.png';
+//    }
+// });
+
+var chars = {
+    boy: 'images/char-boy.png',
+    catGirl: 'images/char-cat-girl.png',
+    hornGirl: 'images/char-horn-girl.png',
+    pinkGirl: 'images/char-pink-girl.png',
+    princessGirl: 'images/char-princess-girl.png'
+}
+var chooseChar;
+
+
+for (var i = 0; i < chars.length; i++) {
+    $("#chars").html('<img src="' + chars[i] + '">')
+
+}
+
+
+$("#chars img").click(function () {
+    if ("img".data("boy")) {
+        console.log('boy');
+
+        chooseChar = chars[0];
+    } else if ("img".data("cat-girl")) {
+        console.log('girl');
+
+        chooseChar = chars[1];
+    }
+
 });
 
 /*****************************
@@ -17,10 +59,10 @@ $("#start").click(function () {
 
 // Enemies our player must avoid
 var Enemy = function (y) {
-    this.x = Math.floor(Math.random()*-500 -50);
+    this.x = Math.floor(Math.random() * -500 - 50);
     this.y = y;
     this.sprite = 'images/enemy-bug.png';
-    this.speed = Math.floor(Math.random()*85 + 25);
+    this.speed = Math.floor(Math.random() * 85 + 25);
 };
 
 // Update the enemy's position, required method for game
@@ -29,7 +71,7 @@ Enemy.prototype.update = function (dt) {
     this.x += this.speed * dt;
     // Sets enemies back at random position when they are out of sight
     if (this.x > 500) {
-        this.x = Math.floor(Math.random()*-500 -50);
+        this.x = Math.floor(Math.random() * -500 - 50);
     }
 };
 
@@ -42,10 +84,10 @@ Enemy.prototype.render = function () {
  PLAYER
  *****************************/
 
-var Player = function (x, y) {
+var Player = function (x, y, sprite) {
     this.x = x;
     this.y = y;
-    this.sprite = 'images/char-boy.png';
+    this.sprite = sprite;
     this.score = 0;
 };
 
@@ -58,7 +100,7 @@ Player.prototype.update = function () {
         this.y = 400;
         this.score += 200;
         // Adds 1 Gem to the screen when no other gem already exists
-        if(gem.length === 0) {
+        if (gem.length === 0) {
             gem.push(new Gem());
         }
     }
@@ -139,7 +181,7 @@ Gem.prototype.update = function () {
     var diff_y = this.y - player.y;
     if (diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
         player.score += 250;
-        if(gem.length > 0) {
+        if (gem.length > 0) {
             gem.pop();
         }
     }
@@ -160,14 +202,14 @@ function pickColor() {
     // Creates an array of keys from the gemColors object
     var colorArray = Object.keys(gemColors);
     // Picks random one key of the array
-    var randomColor = colorArray[ Math.floor(Math.random()*colorArray.length) ];
+    var randomColor = colorArray[Math.floor(Math.random() * colorArray.length)];
     return gemColors[randomColor];
 }
 
 var gem = [new Gem()];
 
 var allEnemies = [new Enemy(60), new Enemy(60), new Enemy(145), new Enemy(230)];
-var player = new Player(200, 400);
+var player = new Player(200, 400, chooseChar);
 
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {
