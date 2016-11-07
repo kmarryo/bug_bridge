@@ -7,6 +7,6 @@ For detailed instructions on how to get started, check out this [guide](https://
 
 
 ## TODO: 
-- let player choose between different characters
 - creates stone in random position
+- show lifes (hearts) and remove them when player is hit
 - format score
