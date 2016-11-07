@@ -48,6 +48,7 @@ var Player = function (x, y) {
     console.log('this.sprite', this.sprite);
 
     this.score = 0;
+    this.level = 1;
 };
 
 var hitCounter = 0;
@@ -96,6 +97,29 @@ Player.prototype.update = function () {
             $("#score-total").html("Your total score: " + _playerScore)
         }
     }
+
+    // var _score = this.score;
+    // var _level = this.level;
+    //
+    // if(_score > 2500) {
+    //     _level = 2;
+    // } else if(_score > 5000) {
+    //     _level = 3;
+    // } else if(_score > 7500) {
+    //     _level = 4;
+    // } else if(_score > 10000) {
+    //     _level = 5;
+    // } else if(_score > 12000) {
+    //     _level = 6;
+    // } else if(_score > 14000) {
+    //     _level = 7;
+    // } else if(_score > 16000) {
+    //     _level = 8;
+    // } else if(_score > 18000) {
+    //     _level = 9;
+    // } else if(_score >= 20000) {
+    //     _level = 10;
+    // }
 };
 
 Player.prototype.render = function () {
@@ -169,6 +193,7 @@ var gem = [new Gem()];
 
 var allEnemies = [new Enemy(60), new Enemy(60), new Enemy(145), new Enemy(230)];
 var player = new Player(200, 400);
+
 
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {
