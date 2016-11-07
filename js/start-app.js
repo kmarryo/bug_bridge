@@ -1,3 +1,7 @@
+$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+    options.async = true;
+});
+
 $("#start").click(function () {
     if($("#chars img").hasClass("clicked")) {
         $("#chars, #start").fadeOut("slow");
