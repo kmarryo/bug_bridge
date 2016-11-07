@@ -1,13 +1,19 @@
 $(".overlay").hide();
 
-$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+$.ajaxPrefilter(function (options, originalOptions, jqXHR) {
     options.async = true;
 });
 
+$("#chars img").click(function () {
+    $("#chars img.active").removeClass("active")
+    $(this).addClass("active");
+
+});
+
 $("#start").click(function () {
-    if($("#chars img").hasClass("clicked")) {
+    if ($("#chars img").hasClass("clicked")) {
         $("#chars, #start").fadeOut("slow");
-        setTimeout(function(){
+        setTimeout(function () {
             $("#game").load("game.html");
         }, 1000);
         $("#chars").attr('clicked', '')
@@ -32,11 +38,11 @@ $("#chars img").click(function () {
         chooseChar = chars.boy;
     } else if (_char === "cat-girl") {
         chooseChar = chars.catGirl;
-    } else if(_char === "horn-girl") {
+    } else if (_char === "horn-girl") {
         console.log('horn-girl');
 
         chooseChar = chars.hornGirl;
-    } else if(_char === "pink-girl") {
+    } else if (_char === "pink-girl") {
         chooseChar = chars.pinkGirl;
     } else {
         chooseChar = chars.princessGirl;
