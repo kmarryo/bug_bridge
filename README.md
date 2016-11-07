@@ -8,5 +8,8 @@ For detailed instructions on how to get started, check out this [guide](https://
 
 ## TODO: 
 - creates stone in random position
+- create star in random position
 - show lifes (hearts) and remove them when player is hit
 - format score
+- play again link on game over overlay
+
