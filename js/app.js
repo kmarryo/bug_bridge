@@ -1,5 +1,8 @@
 $(".overlay").hide();
 
+
+
+
 /*****************************
  ******************************
  CONSTRUCTOR FUNCTIONS
@@ -7,16 +10,16 @@ $(".overlay").hide();
  *****************************/
 
 /**************************
-ENEMIES
+ ENEMIES
  **************************/
 
 
 // Enemies our player must avoid
 var Enemy = function (y) {
-    this.x = Math.floor(Math.random()*-500 -50);
+    this.x = Math.floor(Math.random() * -500 - 50);
     this.y = y;
     this.sprite = 'images/enemy-bug.png';
-    this.speed = Math.floor(Math.random()*85 + 25);
+    this.speed = Math.floor(Math.random() * 85 + 25);
 };
 
 // Update the enemy's position, required method for game
@@ -25,7 +28,7 @@ Enemy.prototype.update = function (dt) {
     this.x += this.speed * dt;
     // Sets enemies back at random position when they are out of sight
     if (this.x > 500) {
-        this.x = Math.floor(Math.random()*-500 -50);
+        this.x = Math.floor(Math.random() * -500 - 50);
     }
 };
 
@@ -41,7 +44,9 @@ Enemy.prototype.render = function () {
 var Player = function (x, y) {
     this.x = x;
     this.y = y;
-    this.sprite = 'images/char-boy.png';
+    this.sprite = chooseChar;
+    console.log('this.sprite', this.sprite);
+
     this.score = 0;
 };
 
@@ -54,7 +59,7 @@ Player.prototype.update = function () {
         this.y = 400;
         this.score += 200;
         // Adds 1 Gem to the screen when no other gem already exists
-        if(gem.length === 0) {
+        if (gem.length === 0) {
             gem.push(new Gem());
         }
     }
@@ -81,7 +86,7 @@ Player.prototype.update = function () {
         console.log(hit, 'hit');
         hitCounter++;
         console.log('hitCounter', hitCounter);
-        
+
         console.log(hitCounter);
         var gameOver = hitCounter > 2;
         // Shows Overlay and total score when player died
@@ -135,7 +140,7 @@ Gem.prototype.update = function () {
     var diff_y = this.y - player.y;
     if (diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
         player.score += 250;
-        if(gem.length > 0) {
+        if (gem.length > 0) {
             gem.pop();
         }
     }
@@ -149,14 +154,14 @@ Gem.prototype.render = function () {
 function pickColor() {
     // Object with all gem colors
     var gemColors = {
-        "blue": "images/Gem Blue.png",
-        "green": "images/Gem Green.png",
-        "orange": "images/Gem Orange.png"
+        blue: "images/Gem Blue.png",
+        green: "images/Gem Green.png",
+        orange: "images/Gem Orange.png"
     }
     // Creates an array of keys from the gemColors object
     var colorArray = Object.keys(gemColors);
     // Picks random one key of the array
-    var randomColor = colorArray[ Math.floor(Math.random()*colorArray.length) ];
+    var randomColor = colorArray[Math.floor(Math.random() * colorArray.length)];
     return gemColors[randomColor];
 }
 
