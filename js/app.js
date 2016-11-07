@@ -1,22 +1,5 @@
 $(".overlay").hide();
 
-// var chooseChar = $("#chars img").each().click(function () {
-//     var _char = $(this).data("char");
-//    if(_char === "boy") {
-//        player.sprite = 'images/char-boy.png';
-//    } else if(_char === "cat-girl") {
-//        console.log('cat-girl');
-//
-//        player.sprite = 'images/char-cat-girl.png';
-//    } else if(_char === "horn-girl") {
-//        player.sprite = 'images/char-horn-girl.png';
-//    } else if(_char === "pink-girl") {
-//        player.sprite = 'images/char-pink-girl.png';
-//    } else if(_char === "princess") {
-//        player.sprite = 'images/char-princess-girl.png';
-//    }
-// });
-
 var chars = {
     boy: 'images/char-boy.png',
     catGirl: 'images/char-cat-girl.png',
@@ -27,21 +10,20 @@ var chars = {
 var chooseChar;
 
 
-for (var i = 0; i < chars.length; i++) {
-    $("#chars").html('<img src="' + chars[i] + '">')
-
-}
-
-
 $("#chars img").click(function () {
-    if ("img".data("boy")) {
-        console.log('boy');
+    var _char = $(this).data("char");
+    if (_char === "boy") {
+        chooseChar = chars.boy;
+    } else if (_char === "cat-girl") {
+        chooseChar = chars.catGirl;
+    } else if(_char === "horn-girl") {
+        console.log('horn-girl');
 
-        chooseChar = chars[0];
-    } else if ("img".data("cat-girl")) {
-        console.log('girl');
-
-        chooseChar = chars[1];
+        chooseChar = chars.hornGirl;
+    } else if(_char === "pink-girl") {
+        chooseChar = chars.pinkGirl;
+    } else {
+        chooseChar = chars.princessGirl;
     }
 
 });
@@ -84,10 +66,12 @@ Enemy.prototype.render = function () {
  PLAYER
  *****************************/
 
-var Player = function (x, y, sprite) {
+var Player = function (x, y) {
     this.x = x;
     this.y = y;
-    this.sprite = sprite;
+    this.sprite = chooseChar;
+    console.log('this.sprite', this.sprite);
+    
     this.score = 0;
 };
 
@@ -209,7 +193,7 @@ function pickColor() {
 var gem = [new Gem()];
 
 var allEnemies = [new Enemy(60), new Enemy(60), new Enemy(145), new Enemy(230)];
-var player = new Player(200, 400, chooseChar);
+var player = new Player(200, 400);
 
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {

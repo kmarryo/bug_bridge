@@ -5,3 +5,5 @@ $("#start").click(function () {
         $("#game").load("game.html");
     }, 1000);
 });
+
+
