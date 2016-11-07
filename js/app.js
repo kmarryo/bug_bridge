@@ -1,5 +1,19 @@
 $(".overlay").hide();
 
+$("#start").click(function () {
+    if($("#chars img").hasClass("clicked")) {
+        $("#chars, #start").fadeOut("slow");
+        setTimeout(function(){
+            $("#game").load("game.html");
+        }, 1000);
+        $("#chars").attr('clicked', '')
+    } else {
+        $("#chars").not('[clicked]').attr('clicked', '').append("<h3>Please choose your character.</h3>");
+    }
+});
+
+
+
 var chars = {
     boy: 'images/char-boy.png',
     catGirl: 'images/char-cat-girl.png',
@@ -11,6 +25,7 @@ var chooseChar;
 
 
 $("#chars img").click(function () {
+    $(this).addClass("clicked");
     var _char = $(this).data("char");
     if (_char === "boy") {
         chooseChar = chars.boy;
@@ -71,7 +86,7 @@ var Player = function (x, y) {
     this.y = y;
     this.sprite = chooseChar;
     console.log('this.sprite', this.sprite);
-    
+
     this.score = 0;
 };
 
