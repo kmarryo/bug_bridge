@@ -40,8 +40,6 @@ var Player = function (x, y) {
     this.x = x;
     this.y = y;
     this.sprite = chooseChar;
-    console.log('this.sprite', this.sprite);
-
     this.score = 0;
     this.level = 1;
 };
@@ -98,23 +96,40 @@ Player.prototype.update = function () {
     var _level = this.level;
     if(_score > 1000 && _score < 2500) {
         _level = 2;
+        if(allEnemies.length === 4) {
+            allEnemies.one(allEnemies.push(new Enemy(60)));
+        }
     } else if(_score > 2500 && _score < 5000) {
         _level = 3;
+        new Enemy(145);
     }  else if(_score > 5000 && _score < 8000) {
         _level = 4;
+        new Enemy(230);
     } else if(_score > 8000 && _score < 12000) {
         _level = 5;
+        new Enemy(60);
+        new Enemy(145);
     } else if(_score > 12000 && _score < 17000) {
         _level = 6;
+        new Enemy(230);
     } else if(_score > 17000 && _score < 22000) {
         _level = 7;
+        new Enemy(230);
+        new Enemy(145);
     } else if(_score > 22000 && _score < 30000) {
         _level = 8;
+        new Enemy(60);
     } else if(_score > 30000 && _score < 40000) {
         _level = 9;
+        new Enemy(60)
+        new Enemy(230);
+        new Enemy(145);
     } else if(_score > 40000) {
         _level = 10;
     }
+    $("#level").text('Level: ' + _level);
+console.log('allEnemies.length', allEnemies.length);
+
 };
 
 Player.prototype.render = function () {
