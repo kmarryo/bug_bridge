@@ -72,7 +72,7 @@ Player.prototype.update = function () {
         }
     }
     // Formats the player score
-    var _playerScore = numeral(player.score).format('0,0');
+    var _playerScore = numeral(this.score).format('0,0');
     $("#score").text('Score: ' + _playerScore);
 
     // Sets player back when he is hit by a bug
@@ -93,28 +93,28 @@ Player.prototype.update = function () {
         }
     }
 
-    // var _score = this.score;
-    // var _level = this.level;
-    //
-    // if(_score > 2500) {
-    //     _level = 2;
-    // } else if(_score > 5000) {
-    //     _level = 3;
-    // } else if(_score > 7500) {
-    //     _level = 4;
-    // } else if(_score > 10000) {
-    //     _level = 5;
-    // } else if(_score > 12000) {
-    //     _level = 6;
-    // } else if(_score > 14000) {
-    //     _level = 7;
-    // } else if(_score > 16000) {
-    //     _level = 8;
-    // } else if(_score > 18000) {
-    //     _level = 9;
-    // } else if(_score >= 20000) {
-    //     _level = 10;
-    // }
+    /// ADDS LEVEL
+    var _score = this.score;
+    var _level = this.level;
+    if(_score > 1000 && _score < 2500) {
+        _level = 2;
+    } else if(_score > 2500 && _score < 5000) {
+        _level = 3;
+    }  else if(_score > 5000 && _score < 8000) {
+        _level = 4;
+    } else if(_score > 8000 && _score < 12000) {
+        _level = 5;
+    } else if(_score > 12000 && _score < 17000) {
+        _level = 6;
+    } else if(_score > 17000 && _score < 22000) {
+        _level = 7;
+    } else if(_score > 22000 && _score < 30000) {
+        _level = 8;
+    } else if(_score > 30000 && _score < 40000) {
+        _level = 9;
+    } else if(_score > 40000) {
+        _level = 10;
+    }
 };
 
 Player.prototype.render = function () {

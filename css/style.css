@@ -1,3 +1,7 @@
+html, body {
+    height: 100vh;
+}
+
 
 body {
     text-align: center;
@@ -16,7 +20,7 @@ body {
 
 .overlay-inner {
     width: 50%;
-    height: 50vh;
+    height: 25vh;
     margin: 0 auto;
     transform: translateY(50%);
     background-color: #fff;
