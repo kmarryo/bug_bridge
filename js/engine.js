@@ -95,6 +95,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+        player.setLevel();
         gem.forEach(function(gems) {
             gems.update();
         });

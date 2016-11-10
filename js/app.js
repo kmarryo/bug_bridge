@@ -2,12 +2,12 @@
  ******************************
  CONSTRUCTOR FUNCTIONS
  *****************************
+ *
+ *
  *****************************/
-
 /**************************
  ENEMIES
  **************************/
-
 
 // Enemies our player must avoid
 var Enemy = function (y) {
@@ -40,11 +40,12 @@ var Player = function (x, y) {
     this.x = x;
     this.y = y;
     this.sprite = chooseChar;
+    this.hitCounter = 0;
     this.score = 0;
     this.level = 1;
 };
 
-var hitCounter = 0;
+//var hitCounter = 0;
 
 Player.prototype.update = function () {
     // Sets player back to starting point when he reaches the water
@@ -56,6 +57,7 @@ Player.prototype.update = function () {
         if (gem.length === 0) {
             gem.push(new Gem());
         }
+        this.spawnBug();
     }
     // diff_x = distance between bug and player
     var hit = false, hit_x, hit_y, diff_x;
@@ -78,11 +80,10 @@ Player.prototype.update = function () {
         this.x = 200;
         this.y = 400;
         console.log(hit, 'hit');
-        hitCounter++;
-        console.log('hitCounter', hitCounter);
+        this.hitCounter++;
+        console.log('hitCounter', this.hitCounter);
 
-        console.log(hitCounter);
-        var gameOver = hitCounter > 2;
+        var gameOver = this.hitCounter > 2;
         // Shows Overlay and total score when player died
         if (gameOver) {
             console.log('game over');
@@ -90,47 +91,15 @@ Player.prototype.update = function () {
             $("#score-total").html("Your total score: " + _playerScore)
         }
     }
-
-    /// ADDS LEVEL
-    var _score = this.score;
-    var _level = this.level;
-    if(_score > 1000 && _score < 2500) {
-        _level = 2;
-        if(allEnemies.length === 4) {
-            allEnemies.one(allEnemies.push(new Enemy(60)));
-        }
-    } else if(_score > 2500 && _score < 5000) {
-        _level = 3;
-        new Enemy(145);
-    }  else if(_score > 5000 && _score < 8000) {
-        _level = 4;
-        new Enemy(230);
-    } else if(_score > 8000 && _score < 12000) {
-        _level = 5;
-        new Enemy(60);
-        new Enemy(145);
-    } else if(_score > 12000 && _score < 17000) {
-        _level = 6;
-        new Enemy(230);
-    } else if(_score > 17000 && _score < 22000) {
-        _level = 7;
-        new Enemy(230);
-        new Enemy(145);
-    } else if(_score > 22000 && _score < 30000) {
-        _level = 8;
-        new Enemy(60);
-    } else if(_score > 30000 && _score < 40000) {
-        _level = 9;
-        new Enemy(60)
-        new Enemy(230);
-        new Enemy(145);
-    } else if(_score > 40000) {
-        _level = 10;
-    }
-    $("#level").text('Level: ' + _level);
-console.log('allEnemies.length', allEnemies.length);
-
 };
+
+
+Player.prototype.spawnBug = function () {
+    if(player.level === 2) {
+        allEnemies.push(new Enemy(60));
+    }
+};
+
 
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -157,6 +126,30 @@ Player.prototype.handleInput = function (key) {
     }
 };
 
+Player.prototype.setLevel = function () {
+    this.level = 1;
+    /// ADDS LEVEL
+    if (this.score > 1000 && this.score < 2500) {
+        this.level = 2;
+    } else if (this.score > 2500 && this.score < 5000) {
+        this.level = 3;
+    } else if (this.score > 5000 && this.score < 8000) {
+        this.level = 4;
+    } else if (this.score > 8000 && this.score < 12000) {
+        this.level = 5;
+    } else if (this.score > 12000 && this.score < 17000) {
+        this.level = 6;
+    } else if (this.score > 17000 && this.score < 22000) {
+        this.level = 7;
+    } else if (this.score > 22000 && this.score < 30000) {
+        this.level = 8;
+    } else if (this.score > 30000 && this.score < 40000) {
+        this.level = 9;
+    } else if (this.score > 40000) {
+        this.level = 10;
+    }
+    $("#level").text('Level: ' + this.level);
+}
 
 /*****************************
  GEMS
@@ -166,7 +159,7 @@ var Gem = function () {
     // Generates Gem at random position on the stone blocks.
     this.x = Math.floor(Math.random() * (400 + 1));
     this.y = Math.floor(Math.random() * (230 - 60 + 1)) + 60;
-    this.sprite = pickColor();
+    this.sprite = this.pickColor();
 };
 
 Gem.prototype.update = function () {
@@ -185,7 +178,7 @@ Gem.prototype.render = function () {
 };
 
 // Function for creating random colored gems
-function pickColor() {
+Gem.prototype.pickColor = function () {
     // Object with all gem colors
     var gemColors = {
         blue: "images/Gem Blue.png",
@@ -200,7 +193,6 @@ function pickColor() {
 }
 
 var gem = [new Gem()];
-
 var allEnemies = [new Enemy(60), new Enemy(60), new Enemy(145), new Enemy(230)];
 var player = new Player(200, 400);
 
@@ -215,3 +207,7 @@ document.addEventListener('keyup', function (e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+console.log('player', player);
+
+
+console.log('allEnemies.length', allEnemies.length);
