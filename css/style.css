@@ -73,3 +73,8 @@ body {
     animation-iteration-count: infinite;
     cursor: pointer;
 }
+
+.hearts-img {
+    width: 25px;
+    height: auto;
+}
