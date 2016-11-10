@@ -6,14 +6,17 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="overlay"><div class="overlay-inner"><h2>Game Over</h2><div id="score-total"></div> </div> </div>
 <div id="chars">
-    <img data-char="boy" src="images/char-boy.png" alt="Boy">
-    <img data-char="cat-girl" src="images/char-cat-girl.png" alt="Cat Girl">
-    <img data-char="horn-girl" src="images/char-horn-girl.png" alt="Horn Girl">
-    <img data-char="pink-girl" src="images/char-pink-girl.png" alt="Pink Girl">
-    <img data-char="princess" src="images/char-princess-girl.png" alt="Princess Girl">
+    <h1 class="title">Bug Bridge</h1>
+    <h2>Choose your hero</h2>
+    <img class="pulse" data-char="boy" src="images/char-boy.png" alt="Boy">
+    <img class="pulse" data-char="cat-girl" src="images/char-cat-girl.png" alt="Cat Girl">
+    <img class="pulse" data-char="horn-girl" src="images/char-horn-girl.png" alt="Horn Girl">
+    <img class="pulse" data-char="pink-girl" src="images/char-pink-girl.png" alt="Pink Girl">
+    <img class="pulse" data-char="princess" src="images/char-princess-girl.png" alt="Princess Girl">
 </div>
-<button id="start">Start</button>
+<button id="start">Play</button>
 <div id="game"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="js/start-app.js"></script>
