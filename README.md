@@ -10,6 +10,6 @@ For detailed instructions on how to get started, check out this [guide](https://
 - creates stone in random position
 - create star in random position
 - show lifes (hearts) and remove them when player is hit
-- format score
 - play again link on game over overlay
+- congrats you reached level 10 and continue game when player reached level 10.
 
