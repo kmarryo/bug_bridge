@@ -95,8 +95,24 @@ Player.prototype.update = function () {
 
 
 Player.prototype.spawnBug = function () {
-    if(player.level === 2) {
+    if(player.level === 2 && enemyCount === allEnemies.length) {
         allEnemies.push(new Enemy(60));
+    } else if(player.level === 3 && (enemyCount + 1) === allEnemies.length) {
+        allEnemies.push(new Enemy(145));
+    } else if(player.level === 4 && (enemyCount + 2) === allEnemies.length) {
+        allEnemies.push(new Enemy(230));
+    } else if(player.level === 5 && (enemyCount + 3) === allEnemies.length) {
+        allEnemies.push(new Enemy(145));
+    } else if(player.level === 6 && (enemyCount + 4) === allEnemies.length) {
+        allEnemies.push(new Enemy(230));
+    } else if(player.level === 7 && (enemyCount + 5) === allEnemies.length) {
+        allEnemies.push(new Enemy(60));
+    } else if(player.level === 8 && (enemyCount + 6) === allEnemies.length) {
+        allEnemies.push(new Enemy(145));
+    } else if(player.level === 9 && (enemyCount + 7) === allEnemies.length) {
+        allEnemies.push(new Enemy(60));
+        allEnemies.push(new Enemy(145));
+        allEnemies.push(new Enemy(230));
     }
 };
 
@@ -209,5 +225,5 @@ document.addEventListener('keyup', function (e) {
 });
 console.log('player', player);
 
-
+var enemyCount = allEnemies.length;
 console.log('allEnemies.length', allEnemies.length);
