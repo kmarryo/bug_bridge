@@ -99,6 +99,7 @@ var Engine = (function(global) {
         gem.forEach(function(gems) {
             gems.update();
         });
+        rock.update();
     }
 
     /* This function initially draws the "game level", it will then call
@@ -159,6 +160,7 @@ var Engine = (function(global) {
         gem.forEach(function(gems) {
             gems.render();
         });
+        rock.render();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -186,7 +188,8 @@ var Engine = (function(global) {
         'images/Gem Blue.png',
         'images/Gem Green.png',
         'images/Gem Orange.png',
-        'images/Heart.png'
+        'images/Heart.png',
+        'images/Rock.png'
     ]);
     Resources.onReady(init);
 
