@@ -57,9 +57,9 @@ Player.prototype.update = function () {
         if (gem.length === 0) {
             gem.push(new Gem());
         }
-        if (rock.length > 0) {
-            rock.pop();
-        }
+        // if (rock.length > 0) {
+        //     rock.pop();
+        // }
         this.spawnBug();
     }
     // diff_x = distance between bug and player
@@ -107,7 +107,7 @@ Player.prototype.update = function () {
 Player.prototype.spawnBug = function () {
     if(this.level === 2 && enemyCount === allEnemies.length) {
         allEnemies.push(new Enemy(60));
-        rock.push(new Rock());
+        //rock.push(new Rock());
     } else if(this.level === 3 && (enemyCount + 1) === allEnemies.length) {
         allEnemies.push(new Enemy(145));
     } else if(this.level === 4 && (enemyCount + 2) === allEnemies.length) {
@@ -135,14 +135,14 @@ Player.prototype.render = function () {
 Player.prototype.handleInput = function (key) {
     // Moves the player on keyboard input
     if (key === 'left') {
-        if (this.x > 0 && !rock.noLeft) {
+        if (this.x > 0) {
             this.x -= 100;
         }
-    } else if (key === 'up' && !rock.noUp) {
+    } else if (key === 'up') {
         if (this.y > 0) {
             this.y -= 85;
         }
-    } else if (key === 'right' && !rock.noRight) {
+    } else if (key === 'right') {
         if (this.x < 400 ) {
             this.x += 100;
         }
@@ -184,15 +184,12 @@ Player.prototype.setLevel = function () {
 
 var Gem = function () {
     // Generates Gem at random position on the stone blocks.
-    this.x = Math.floor(Math.random() * (400 + 1));
-    this.y = Math.floor(Math.random() * (230 - 60 + 1)) + 60;
+    this.set_random_x_y();
     this.sprite = this.pickColor();
 };
 
 Gem.prototype.update = function () {
-    var diff_x = this.x - player.x;
-    var diff_y = this.y - player.y;
-    if (diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
+    if(this.x === player.x && this.y === player.y) {
         player.score += 250;
         if (gem.length > 0) {
             gem.pop();
@@ -217,54 +214,46 @@ Gem.prototype.pickColor = function () {
     // Picks random one key of the array
     var randomColor = colorArray[Math.floor(Math.random() * colorArray.length)];
     return gemColors[randomColor];
-}
+};
+
+Gem.prototype.set_random_x_y = function () {
+    set_random_x_y(this);
+};
+var set_random_x_y = function (obj, array_x, array_y){
+    if(typeof array_x == 'undefined') {
+        array_x = [0, 100, 200, 300, 400];
+    }
+    if(typeof array_y == 'undefined') {
+        array_y = [60, 145, 230];
+    }
+    obj.x = random(array_x);
+    obj.y = random(array_y);
+    function random(arr){
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+};
+
+
 
 /*****************************
  Rock
  *****************************/
 
 var Rock = function () {
-    this.x =   Math.floor(Math.random() * (400 + 1));
-    this.y = Math.floor(Math.random() * (230 - 60 + 1)) + 60;
-    this.sprite = 'images/Rock.png'
-    this.noLeft = false;
-    this.noRight = false;
-    this.noUp = false;
-    this.noDown = false;
+    this.sprite = 'images/Rock.png';
+    this.set_random_x_y();
 };
 
 Rock.prototype.update = function () {
-    var diff_x = this.x - player.x;
-    var diff_y = this.y - player.y;
-    var noLeft = diff_x > -120 && diff_x < 0 && diff_y < 40 && diff_y > -40;
-    var noRight = diff_x < 120 && diff_x > 0 && diff_y < 40 && diff_y > -40;
-    var noUp = diff_x > -120 && diff_x < 120 && diff_y > -120 && diff_y <0;
 
-    //var noRight = diff_x > -100 && diff_x < 0 && diff_y < 60 && diff_y > -60;
-    if(noLeft) {
-        console.log('noLeft', noLeft);
-        this.noLeft = true;
-    } else {
-        this.noLeft = false;
-    }
-    if(noRight) {
-        console.log('noRight', noRight);
-        this.noRight = true;
-
-    } else {
-        this.noRight = false;
-    }
-    if(noUp) {
-        console.log('noUp', noUp);
-        this.noUp = true;
-
-    } else {
-        this.noUp = false;
-    }
 };
 
 Rock.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Rock.prototype.set_random_x_y = function () {
+    set_random_x_y(this);
 };
 
 
@@ -288,11 +277,3 @@ console.log('player', player);
 var enemyCount = allEnemies.length;
 console.log('allEnemies.length', allEnemies.length);
 $("#hearts").append('<img class="hearts-img first" src="images/Heart.png" alt="hearts">', '<img class="hearts-img second" src="images/Heart.png" alt="hearts">', '<img class="hearts-img third" src="images/Heart.png" alt="hearts">');
-//
-// function chooseField() {
-//     var fieldY = [60, 145, 230];
-//     var fieldX = [0, 100, 200, 300, 400];
-//     this.y =fieldY[Math.floor(Math.random()*fieldY.length)];
-//     this.x =fieldX[Math.floor(Math.random()*fieldX.length)];
-//
-// }
