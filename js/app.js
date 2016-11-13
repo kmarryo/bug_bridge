@@ -57,6 +57,9 @@ Player.prototype.update = function () {
         if (gem.length === 0) {
             gem.push(new Gem());
         }
+        // if (rock.length > 0) {
+        //     rock.pop();
+        // }
         this.spawnBug();
     }
     // diff_x = distance between bug and player
@@ -82,10 +85,17 @@ Player.prototype.update = function () {
         console.log(hit, 'hit');
         this.hitCounter++;
         console.log('hitCounter', this.hitCounter);
-
         var gameOver = this.hitCounter > 2;
-        // Shows Overlay and total score when player died
-        if (gameOver) {
+        function removeHearts(life) {
+            $(life).fadeOut(1000);
+        }
+        if(this.hitCounter === 1) {
+            removeHearts(".third");
+        } else if (this.hitCounter === 2) {
+            removeHearts(".second");
+        }         // Shows Overlay and total score when player died
+        else if(gameOver) {
+            removeHearts(".third");
             console.log('game over');
             $(".overlay").show();
             $("#score-total").html("Your total score: " + _playerScore)
@@ -97,6 +107,7 @@ Player.prototype.update = function () {
 Player.prototype.spawnBug = function () {
     if(this.level === 2 && enemyCount === allEnemies.length) {
         allEnemies.push(new Enemy(60));
+        //rock.push(new Rock());
     } else if(this.level === 3 && (enemyCount + 1) === allEnemies.length) {
         allEnemies.push(new Enemy(145));
     } else if(this.level === 4 && (enemyCount + 2) === allEnemies.length) {
@@ -122,20 +133,27 @@ Player.prototype.render = function () {
 };
 
 Player.prototype.handleInput = function (key) {
+    var distanceX = rock.x - this.x;
+    var distanceY = rock.y - this.y;
+    var sameLine = distanceY === 0;
+    var noRight = distanceX === 100 && sameLine;
+    var noLeft = distanceX === -100 && sameLine;
+    var noUp = distanceX === 0 && distanceY === -85;
+    var noDown = distanceX === 0 && distanceY === 85;
     // Moves the player on keyboard input
-    if (key === 'left') {
+    if (key === 'left' && !noLeft) {
         if (this.x > 0) {
             this.x -= 100;
         }
-    } else if (key === 'up') {
+    } else if (key === 'up' && !noUp) {
         if (this.y > 0) {
             this.y -= 85;
         }
-    } else if (key === 'right') {
-        if (this.x < 400) {
+    } else if (key === 'right' && !noRight) {
+        if (this.x < 400 ) {
             this.x += 100;
         }
-    } else if (key === 'down') {
+    } else if (key === 'down' && !noDown) {
         if (this.y < 400) {
             this.y += 85;
         }
@@ -165,7 +183,7 @@ Player.prototype.setLevel = function () {
         this.level = 10;
     }
     $("#level").text('Level: ' + this.level);
-}
+};
 
 /*****************************
  GEMS
@@ -173,15 +191,12 @@ Player.prototype.setLevel = function () {
 
 var Gem = function () {
     // Generates Gem at random position on the stone blocks.
-    this.x = Math.floor(Math.random() * (400 + 1));
-    this.y = Math.floor(Math.random() * (230 - 60 + 1)) + 60;
+    this.set_random_x_y();
     this.sprite = this.pickColor();
 };
 
 Gem.prototype.update = function () {
-    var diff_x = this.x - player.x;
-    var diff_y = this.y - player.y;
-    if (diff_x < 60 && diff_x > -45 && diff_y < 60 && diff_y > -45) {
+    if(this.x === player.x && this.y === player.y) {
         player.score += 250;
         if (gem.length > 0) {
             gem.pop();
@@ -200,18 +215,59 @@ Gem.prototype.pickColor = function () {
         blue: "images/Gem Blue.png",
         green: "images/Gem Green.png",
         orange: "images/Gem Orange.png"
-    }
+    };
     // Creates an array of keys from the gemColors object
     var colorArray = Object.keys(gemColors);
     // Picks random one key of the array
     var randomColor = colorArray[Math.floor(Math.random() * colorArray.length)];
     return gemColors[randomColor];
-}
+};
+
+Gem.prototype.set_random_x_y = function () {
+    set_random_x_y(this);
+};
+var set_random_x_y = function (obj, array_x, array_y){
+    if(typeof array_x == 'undefined') {
+        array_x = [0, 100, 200, 300, 400];
+    }
+    if(typeof array_y == 'undefined') {
+        array_y = [60, 145, 230];
+    }
+    obj.x = random(array_x);
+    obj.y = random(array_y);
+    function random(arr){
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+};
+
+
+
+/*****************************
+ Rock
+ *****************************/
+
+var Rock = function () {
+    this.sprite = 'images/Rock.png';
+    this.set_random_x_y();
+};
+
+Rock.prototype.update = function () {
+
+};
+
+Rock.prototype.render = function () {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Rock.prototype.set_random_x_y = function () {
+    set_random_x_y(this);
+};
+
 
 var gem = [new Gem()];
 var allEnemies = [new Enemy(60), new Enemy(60), new Enemy(145), new Enemy(230)];
 var player = new Player(200, 400);
-
+var rock = new Rock();
 
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {
@@ -227,3 +283,6 @@ console.log('player', player);
 
 var enemyCount = allEnemies.length;
 console.log('allEnemies.length', allEnemies.length);
+$("#hearts").append('<img class="hearts-img first" src="images/Heart.png" alt="hearts">', '<img class="hearts-img second" src="images/Heart.png" alt="hearts">', '<img class="hearts-img third" src="images/Heart.png" alt="hearts">');
+
+
