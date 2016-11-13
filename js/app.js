@@ -133,20 +133,27 @@ Player.prototype.render = function () {
 };
 
 Player.prototype.handleInput = function (key) {
+    var distanceX = rock.x - this.x;
+    var distanceY = rock.y - this.y;
+    var sameLine = distanceY === 0;
+    var noRight = distanceX === 100 && sameLine;
+    var noLeft = distanceX === -100 && sameLine;
+    var noUp = distanceX === 0 && distanceY === -85;
+    var noDown = distanceX === 0 && distanceY === 85;
     // Moves the player on keyboard input
-    if (key === 'left') {
+    if (key === 'left' && !noLeft) {
         if (this.x > 0) {
             this.x -= 100;
         }
-    } else if (key === 'up') {
+    } else if (key === 'up' && !noUp) {
         if (this.y > 0) {
             this.y -= 85;
         }
-    } else if (key === 'right') {
+    } else if (key === 'right' && !noRight) {
         if (this.x < 400 ) {
             this.x += 100;
         }
-    } else if (key === 'down') {
+    } else if (key === 'down' && !noDown) {
         if (this.y < 400) {
             this.y += 85;
         }
@@ -176,7 +183,7 @@ Player.prototype.setLevel = function () {
         this.level = 10;
     }
     $("#level").text('Level: ' + this.level);
-}
+};
 
 /*****************************
  GEMS
@@ -208,7 +215,7 @@ Gem.prototype.pickColor = function () {
         blue: "images/Gem Blue.png",
         green: "images/Gem Green.png",
         orange: "images/Gem Orange.png"
-    }
+    };
     // Creates an array of keys from the gemColors object
     var colorArray = Object.keys(gemColors);
     // Picks random one key of the array
@@ -277,3 +284,5 @@ console.log('player', player);
 var enemyCount = allEnemies.length;
 console.log('allEnemies.length', allEnemies.length);
 $("#hearts").append('<img class="hearts-img first" src="images/Heart.png" alt="hearts">', '<img class="hearts-img second" src="images/Heart.png" alt="hearts">', '<img class="hearts-img third" src="images/Heart.png" alt="hearts">');
+
+
