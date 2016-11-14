@@ -57,9 +57,10 @@ Player.prototype.update = function () {
         if (gem.length === 0) {
             gem.push(new Gem());
         }
-        // if (rock.length > 0) {
-        //     rock.pop();
-        // }
+        if(rock.length === 1) {
+            rock.pop();
+            rock.push(new Rock());
+        }
         this.spawnBug();
     }
     // diff_x = distance between bug and player
@@ -107,7 +108,6 @@ Player.prototype.update = function () {
 Player.prototype.spawnBug = function () {
     if(this.level === 2 && enemyCount === allEnemies.length) {
         allEnemies.push(new Enemy(60));
-        //rock.push(new Rock());
     } else if(this.level === 3 && (enemyCount + 1) === allEnemies.length) {
         allEnemies.push(new Enemy(145));
     } else if(this.level === 4 && (enemyCount + 2) === allEnemies.length) {
@@ -133,31 +133,34 @@ Player.prototype.render = function () {
 };
 
 Player.prototype.handleInput = function (key) {
-    var distanceX = rock.x - this.x;
-    var distanceY = rock.y - this.y;
-    var sameLine = distanceY === 0;
-    var noRight = distanceX === 100 && sameLine;
-    var noLeft = distanceX === -100 && sameLine;
-    var noUp = distanceX === 0 && distanceY === -85;
-    var noDown = distanceX === 0 && distanceY === 85;
-    // Moves the player on keyboard input
-    if (key === 'left' && !noLeft) {
-        if (this.x > 0) {
-            this.x -= 100;
-        }
-    } else if (key === 'up' && !noUp) {
-        if (this.y > 0) {
-            this.y -= 85;
-        }
-    } else if (key === 'right' && !noRight) {
-        if (this.x < 400 ) {
-            this.x += 100;
-        }
-    } else if (key === 'down' && !noDown) {
-        if (this.y < 400) {
-            this.y += 85;
+    for(var i=0; i<rock.length; i++) {
+        var distanceX = rock[i].x - this.x;
+        var distanceY = rock[i].y - this.y;
+        var sameLine = distanceY === 0;
+        var noRight = distanceX === 100 && sameLine;
+        var noLeft = distanceX === -100 && sameLine;
+        var noUp = distanceX === 0 && distanceY === -85;
+        var noDown = distanceX === 0 && distanceY === 85;
+        // Moves the player on keyboard input
+        if (key === 'left' && !noLeft) {
+            if (this.x > 0) {
+                this.x -= 100;
+            }
+        } else if (key === 'up' && !noUp) {
+            if (this.y > 0) {
+                this.y -= 85;
+            }
+        } else if (key === 'right' && !noRight) {
+            if (this.x < 400 ) {
+                this.x += 100;
+            }
+        } else if (key === 'down' && !noDown) {
+            if (this.y < 400) {
+                this.y += 85;
+            }
         }
     }
+
 };
 
 Player.prototype.setLevel = function () {
@@ -252,7 +255,12 @@ var Rock = function () {
 };
 
 Rock.prototype.update = function () {
-
+    // If rock and gem are in the exact same position, rock will get a new position
+    for(var i=0; i<gem.length; i++) {
+        if (this.x === gem[i].x && this.y === gem[i].y) {
+            set_random_x_y(this);
+        }
+    }
 };
 
 Rock.prototype.render = function () {
@@ -267,7 +275,7 @@ Rock.prototype.set_random_x_y = function () {
 var gem = [new Gem()];
 var allEnemies = [new Enemy(60), new Enemy(60), new Enemy(145), new Enemy(230)];
 var player = new Player(200, 400);
-var rock = new Rock();
+var rock = [new Rock()];
 
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {
