@@ -102,6 +102,9 @@ var Engine = (function(global) {
         rock.forEach(function(rocks) {
             rocks.update();
         });
+        star.forEach(function(stars) {
+            stars.update();
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -165,6 +168,9 @@ var Engine = (function(global) {
         rock.forEach(function(rocks) {
             rocks.render();
         });
+        star.forEach(function(stars) {
+            stars.render();
+        });
     }
 
     /* This function does nothing but it could have been a good place to
@@ -193,7 +199,8 @@ var Engine = (function(global) {
         'images/Gem Green.png',
         'images/Gem Orange.png',
         'images/Heart.png',
-        'images/Rock.png'
+        'images/Rock.png',
+        'images/Star.png'
     ]);
     Resources.onReady(init);
 

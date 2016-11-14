@@ -112,18 +112,30 @@ Player.prototype.spawnBug = function () {
         allEnemies.push(new Enemy(145));
     } else if(this.level === 4 && (enemyCount + 2) === allEnemies.length) {
         allEnemies.push(new Enemy(230));
+        if(star.length === 0) {
+            star.push(new Star());
+        }
     } else if(this.level === 5 && (enemyCount + 3) === allEnemies.length) {
         allEnemies.push(new Enemy(145));
     } else if(this.level === 6 && (enemyCount + 4) === allEnemies.length) {
         allEnemies.push(new Enemy(230));
+        if(star.length === 0) {
+            star.push(new Star());
+        }
     } else if(this.level === 7 && (enemyCount + 5) === allEnemies.length) {
         allEnemies.push(new Enemy(60));
     } else if(this.level === 8 && (enemyCount + 6) === allEnemies.length) {
         allEnemies.push(new Enemy(145));
+        if(star.length === 0) {
+            star.push(new Star());
+        }
     } else if(this.level === 9 && (enemyCount + 7) === allEnemies.length) {
         allEnemies.push(new Enemy(60));
         allEnemies.push(new Enemy(145));
         allEnemies.push(new Enemy(230));
+        if(star.length === 0) {
+            star.push(new Star());
+        }
     }
 };
 
@@ -180,6 +192,7 @@ Player.prototype.setLevel = function () {
         this.level = 7;
     } else if (this.score > 22000 && this.score < 30000) {
         this.level = 8;
+        star.push(new Star());
     } else if (this.score > 30000 && this.score < 40000) {
         this.level = 9;
     } else if (this.score > 40000) {
@@ -272,10 +285,43 @@ Rock.prototype.set_random_x_y = function () {
 };
 
 
+/*****************************
+ Star
+ *****************************/
+
+
+var Star = function () {
+    this.sprite = 'images/Star.png';
+    this.set_random_x_y();
+};
+
+Star.prototype.update = function () {
+    for(var i=0; i<rock.length; i++) {
+        if (this.x === rock[i].x && this.y === rock[i].y) {
+            set_random_x_y(this);
+        }
+    }
+    if(this.x === player.x && this.y === player.y) {
+        player.score += 700;
+        if (star.length > 0) {
+            star.pop();
+        }
+    }
+};
+
+Star.prototype.render = function () {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Star.prototype.set_random_x_y = function () {
+    set_random_x_y(this);
+};
+
 var gem = [new Gem()];
 var allEnemies = [new Enemy(60), new Enemy(60), new Enemy(145), new Enemy(230)];
 var player = new Player(200, 400);
 var rock = [new Rock()];
+var star = [new Star()];
 
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {
