@@ -41,8 +41,6 @@ $("#chars img").click(function () {
     } else if (_char === "cat-girl") {
         chooseChar = chars.catGirl;
     } else if (_char === "horn-girl") {
-        console.log('horn-girl');
-
         chooseChar = chars.hornGirl;
     } else if (_char === "pink-girl") {
         chooseChar = chars.pinkGirl;

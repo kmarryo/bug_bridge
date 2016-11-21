@@ -83,9 +83,7 @@ Player.prototype.update = function () {
     if (hit) {
         this.x = 200;
         this.y = 400;
-        console.log(hit, 'hit');
         this.hitCounter++;
-        console.log('hitCounter', this.hitCounter);
         var gameOver = this.hitCounter > 2;
         function removeHearts(life) {
             $(life).fadeOut(1000);
@@ -97,7 +95,6 @@ Player.prototype.update = function () {
         }         // Shows Overlay and total score when player died
         else if(gameOver) {
             removeHearts(".third");
-            console.log('game over');
             $("#game").css("margin", "0 auto -3rem");
             $(".overlay").fadeIn("slow");
             $("#score-total").html("Your total score: " + _playerScore);
@@ -342,10 +339,8 @@ document.addEventListener('keyup', function (e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-console.log('player', player);
 
 var enemyCount = allEnemies.length;
-console.log('allEnemies.length', allEnemies.length);
 $("#hearts").append('<img class="hearts-img first" src="images/Heart.png" alt="hearts">', '<img class="hearts-img second" src="images/Heart.png" alt="hearts">', '<img class="hearts-img third" src="images/Heart.png" alt="hearts">');
 
 
