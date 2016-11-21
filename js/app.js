@@ -99,7 +99,7 @@ Player.prototype.update = function () {
             removeHearts(".third");
             console.log('game over');
             $("#game").css("margin", "0 auto -3rem");
-            $(".overlay").show();
+            $(".overlay").fadeIn("slow");
             $("#score-total").html("Your total score: " + _playerScore);
         }
     }
@@ -138,9 +138,11 @@ Player.prototype.spawnBug = function () {
             star.push(new Star());
         }
         else if(this.level === 10) {
+            $("#game").css("margin", "0 auto -3rem");
             $(".overlay-congrats").show();
             $(".keep-playing").click(function () {
-                $(".overlay-congrats").hide();
+                $(".overlay-congrats").fadeOut("slow");
+                $("#game").css("margin", "10rem auto -3rem");
             });
         }
     }

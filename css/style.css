@@ -130,7 +130,8 @@ h2 {
 }
 
 .start,
-.try-again {
+.try-again,
+.keep-playing {
     font-size: 1.25rem;
     margin: 2rem auto 0;
     width: 250px;
@@ -144,6 +145,10 @@ h2 {
     box-shadow: 2px 3px 20px 0px rgba(0,0,0,0.66);
 }
 
+.keep-playing {
+    width: 350px;
+}
+
 .try-again a {
     color: #fff;
     padding: 10px 70px;
@@ -154,7 +159,8 @@ h2 {
 }
 
 .start:hover,
-.try-again:hover {
+.try-again:hover,
+.keep-playing:hover {
     background-color: #DB5FFF;
     cursor: pointer;
 }
@@ -182,6 +188,12 @@ h2 {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.congrats h2 {
+    font-size: 1.5rem;
+    padding-top: 5rem;
+    margin-bottom: 2rem;
 }
 
 
