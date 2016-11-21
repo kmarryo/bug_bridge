@@ -6,9 +6,32 @@ html, body {
 body {
     text-align: center;
     position: relative;
+    font-family: 'Share', cursive;
+}
+/* Helper */
+
+.clear {
+    clear: both;
 }
 
-.overlay {
+@font-face {
+    font-family: 'PacFont';
+    src: url('../fonts/PacFont.ttf') format('truetype');
+}
+
+
+/* General */
+
+.title {
+    font-family: 'PacFont', Arial, Helvetica, sans-serif;
+    margin-bottom: 3rem;
+}
+
+h2 {
+    font-family: 'Share', cursive;
+}
+
+.overlay, .overlay-congrats {
     position: absolute;
     top: 0;
     left: 0;
@@ -18,12 +41,24 @@ body {
     background-color: rgba(0,0,0,0.9);
 }
 
-.overlay-inner {
+.overlay-inner, .congrats {
     width: 50%;
     height: 25vh;
     margin: 0 auto;
     transform: translateY(50%);
-    background-color: #fff;
+    background-color: #739cff;
+    border-radius: 50px;
+    color: #fff;
+}
+
+.overlay-inner h2 {
+    font-family: 'PacFont', Arial, Helvetica, sans-serif;
+    padding-top: 5rem;
+    font-size: 4rem;
+}
+
+#score-total {
+    font-size: 2rem;
 }
 
 @-webkit-keyframes pulse {
@@ -59,7 +94,12 @@ body {
 }
 
 .pulse.active {
-    border: 1px solid #35e218;
+    border: 3px solid #A961FF;
+    border-radius: 40px;
+}
+
+.pulse.active:hover {
+    animation: none;
 }
 
 .pulse:hover {
@@ -75,6 +115,80 @@ body {
 }
 
 .hearts-img {
-    width: 25px;
+    width: 35px;
     height: auto;
+}
+
+.img-wrap {
+    width: 20%;
+    float: left;
+}
+
+#chars {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.start,
+.try-again {
+    font-size: 1.25rem;
+    margin: 2rem auto 0;
+    width: 250px;
+    height: 50px;
+    border-radius: 30px;
+    background-color: #A961FF;
+    border-color: #fff;
+    color: #fff;
+    -webkit-box-shadow: 2px 3px 20px 0px rgba(0,0,0,0.66);
+    -moz-box-shadow: 2px 3px 20px 0px rgba(0,0,0,0.66);
+    box-shadow: 2px 3px 20px 0px rgba(0,0,0,0.66);
+}
+
+.try-again a {
+    color: #fff;
+    padding: 10px 70px;
+}
+.try-again a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.start:hover,
+.try-again:hover {
+    background-color: #DB5FFF;
+    cursor: pointer;
+}
+
+.instructions {
+    max-width: 1000px;
+    margin: 3rem auto 0;
+}
+
+#game {
+    width: 505px;
+    margin: 10rem auto -3rem;
+    position: relative;
+    color: #fff;
+    font-size: 2rem;
+}
+
+#score {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+#level {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+/* Bootstrap Override */
+
+.jumbotron {
+    padding-top: 30vh;
+    margin-bottom: 0;
+    background-color: #739cff;
 }

@@ -1,4 +1,5 @@
 $(".overlay").hide();
+$(".overlay-congrats").hide();
 
 $.ajaxPrefilter(function (options, originalOptions, jqXHR) {
     options.async = true;
@@ -10,9 +11,10 @@ $("#chars img").click(function () {
 
 });
 
-$("#start").click(function () {
+$(".start").click(function () {
     if ($("#chars img").hasClass("clicked")) {
-        $("#chars, #start").fadeOut("slow");
+        $("#chars, .start, .instructions, .jumbotron").fadeOut("slow");
+        $("body").css("background-color", "#739cff");
         setTimeout(function () {
             $("#game").load("game.html");
         }, 1000);

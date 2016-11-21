@@ -3,20 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css"
+          integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Share" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <body>
-<div class="overlay"><div class="overlay-inner"><h2>Game Over</h2><div id="score-total"></div> </div> </div>
-<div id="chars">
-    <h1 class="title">Bug Bridge</h1>
-    <h2>Choose your hero</h2>
-    <img class="pulse" data-char="boy" src="images/char-boy.png" alt="Boy">
-    <img class="pulse" data-char="cat-girl" src="images/char-cat-girl.png" alt="Cat Girl">
-    <img class="pulse" data-char="horn-girl" src="images/char-horn-girl.png" alt="Horn Girl">
-    <img class="pulse" data-char="pink-girl" src="images/char-pink-girl.png" alt="Pink Girl">
-    <img class="pulse" data-char="princess" src="images/char-princess-girl.png" alt="Princess Girl">
+<div class="overlay">
+    <div class="overlay-inner"><h2>Game Over</h2>
+        <div id="score-total"></div>
+        <button class="try-again"><a href="index.html">Try again</a></button>
+    </div>
 </div>
-<button id="start">Play</button>
+<div class="overlay-congrats">
+    <div class="congrats">Congrats, you just reached level 10. You are so awesome!
+        <button class="keep-playing">Yes, I know. Let´ keep on rocking!</button>
+    </div>
+</div>
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="title">Bug Bridge</h1>
+        <h2>Choose your hero</h2>
+    </div>
+    <div id="chars">
+
+        <div class="img-wrap">
+            <img class="pulse" data-char="boy" src="images/char-boy.png" alt="Boy">
+        </div>
+        <div class="img-wrap">
+            <img class="pulse" data-char="cat-girl" src="images/char-cat-girl.png" alt="Cat Girl">
+        </div>
+        <div class="img-wrap">
+            <img class="pulse" data-char="horn-girl" src="images/char-horn-girl.png" alt="Horn Girl">
+        </div>
+        <div class="img-wrap">
+            <img class="pulse" data-char="pink-girl" src="images/char-pink-girl.png" alt="Pink Girl">
+        </div>
+        <div class="img-wrap">
+            <img class="pulse" data-char="princess" src="images/char-princess-girl.png" alt="Princess Girl">
+        </div>
+    </div>
+    <div class="clear"></div>
+    <button class="start">Play</button>
+</div>
+<div class="instructions">
+<h2>Welcome to Bug Bridge!</h2>
+<p>This takes you back in the year 1981, when Frogger was really popular. Here are the rules:</p>
+<p>You choose one of the players above and hit "Play". The goal of the game is to reach the water without getting hit by one of the bugs. You have three lifes. When you are hit three times, the game is over. To get more points you may want to collect gems and stars. But be careful! Bugs can be evil.</p>
+<p>After reaching an higher level, the difficulty of the game increases. You you will see that more and more bugs spawn. After you reached level 10, you are officially one of the world´s leading expert on bugs. </p>
+
+<h3>Good <i class="fa fa-bug" aria-hidden="true"></i> Luck!</h3>
+</div>
 <div id="game"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="js/start-app.js"></script>
