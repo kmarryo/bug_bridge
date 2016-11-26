@@ -35,7 +35,7 @@ Enemy.prototype.render = function () {
 /*****************************
  PLAYER
  *****************************/
-
+// Constructor function for our player
 var Player = function (x, y) {
     this.x = x;
     this.y = y;
@@ -45,8 +45,7 @@ var Player = function (x, y) {
     this.level = 1;
 };
 
-//var hitCounter = 0;
-
+// Updates the position and score of the player
 Player.prototype.update = function () {
     // Sets player back to starting point when he reaches the water
     if (this.y <= 0) {
@@ -57,10 +56,12 @@ Player.prototype.update = function () {
         if (gem.length === 0) {
             gem.push(new Gem());
         }
-        if(rock.length === 1) {
+        // Adds a rock to the game and updates when player reaches the water
+        if (rock.length === 1) {
             rock.pop();
             rock.push(new Rock());
         }
+        // Checks if more bugs spawn
         this.spawnBug();
     }
     // diff_x = distance between bug and player
@@ -83,17 +84,20 @@ Player.prototype.update = function () {
     if (hit) {
         this.x = 200;
         this.y = 400;
+        // Counter when player is hit. On hit the displayed hearts decrease by one. If he is hit three times, the player dies.
         this.hitCounter++;
         var gameOver = this.hitCounter > 2;
+
         function removeHearts(life) {
             $(life).fadeOut(1000);
         }
-        if(this.hitCounter === 1) {
+
+        if (this.hitCounter === 1) {
             removeHearts(".third");
         } else if (this.hitCounter === 2) {
             removeHearts(".second");
         }         // Shows Overlay and total score when player died
-        else if(gameOver) {
+        else if (gameOver) {
             removeHearts(".third");
             $("#game").css("margin", "0 auto -3rem");
             $(".overlay").fadeIn("slow");
@@ -102,39 +106,43 @@ Player.prototype.update = function () {
     }
 };
 
-
+// Function for spawning new bugs to the game depending on player level
 Player.prototype.spawnBug = function () {
-    if(this.level === 2 && enemyCount === allEnemies.length) {
+    if (this.level === 2 && enemyCount === allEnemies.length) {
         allEnemies.push(new Enemy(60));
-    } else if(this.level === 3 && (enemyCount + 1) === allEnemies.length) {
+    } else if (this.level === 3 && (enemyCount + 1) === allEnemies.length) {
         allEnemies.push(new Enemy(145));
-    } else if(this.level === 4 && (enemyCount + 2) === allEnemies.length) {
+    } else if (this.level === 4 && (enemyCount + 2) === allEnemies.length) {
         allEnemies.push(new Enemy(230));
-        if(star.length === 0) {
+        if (star.length === 0) {
             star.push(new Star());
         }
-    } else if(this.level === 5 && (enemyCount + 3) === allEnemies.length) {
+    } else if (this.level === 5 && (enemyCount + 3) === allEnemies.length) {
         allEnemies.push(new Enemy(145));
-    } else if(this.level === 6 && (enemyCount + 4) === allEnemies.length) {
+    } else if (this.level === 6 && (enemyCount + 4) === allEnemies.length) {
         allEnemies.push(new Enemy(230));
-        if(star.length === 0) {
+        // Spawns a star in random position
+        if (star.length === 0) {
             star.push(new Star());
         }
-    } else if(this.level === 7 && (enemyCount + 5) === allEnemies.length) {
+    } else if (this.level === 7 && (enemyCount + 5) === allEnemies.length) {
         allEnemies.push(new Enemy(60));
-    } else if(this.level === 8 && (enemyCount + 6) === allEnemies.length) {
+    } else if (this.level === 8 && (enemyCount + 6) === allEnemies.length) {
         allEnemies.push(new Enemy(145));
-        if(star.length === 0) {
+        // Spawns a star in random position
+        if (star.length === 0) {
             star.push(new Star());
         }
-    } else if(this.level === 9 && (enemyCount + 7) === allEnemies.length) {
+    } else if (this.level === 9 && (enemyCount + 7) === allEnemies.length) {
         allEnemies.push(new Enemy(60));
         allEnemies.push(new Enemy(145));
         allEnemies.push(new Enemy(230));
-        if(star.length === 0) {
+        // Spawns a star in random position
+        if (star.length === 0) {
             star.push(new Star());
         }
-        else if(this.level === 10) {
+        // This is called when player reaches the maximum level 10
+        else if (this.level === 10) {
             $("#game").css("margin", "0 auto -3rem");
             $(".overlay-congrats").show();
             $(".keep-playing").click(function () {
@@ -145,13 +153,15 @@ Player.prototype.spawnBug = function () {
     }
 };
 
-
+// Draws the player
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Handles the input of the player
 Player.prototype.handleInput = function (key) {
-    for(var i=0; i<rock.length; i++) {
+    // This is used for preventing that player can move through the rocks.
+    for (var i = 0; i < rock.length; i++) {
         var distanceX = rock[i].x - this.x;
         var distanceY = rock[i].y - this.y;
         var sameLine = distanceY === 0;
@@ -169,7 +179,7 @@ Player.prototype.handleInput = function (key) {
                 this.y -= 85;
             }
         } else if (key === 'right' && !noRight) {
-            if (this.x < 400 ) {
+            if (this.x < 400) {
                 this.x += 100;
             }
         } else if (key === 'down' && !noDown) {
@@ -181,6 +191,7 @@ Player.prototype.handleInput = function (key) {
 
 };
 
+// Defines the player level
 Player.prototype.setLevel = function () {
     this.level = 1;
     /// ADDS LEVEL
@@ -210,15 +221,15 @@ Player.prototype.setLevel = function () {
 /*****************************
  GEMS
  *****************************/
-
+// Gems the player must collect
 var Gem = function () {
     // Generates Gem at random position on the stone blocks.
     this.set_random_x_y();
     this.sprite = this.pickColor();
 };
-
+// Resets the gem when the player collects it
 Gem.prototype.update = function () {
-    if(this.x === player.x && this.y === player.y) {
+    if (this.x === player.x && this.y === player.y) {
         player.score += 250;
         if (gem.length > 0) {
             gem.pop();
@@ -226,6 +237,7 @@ Gem.prototype.update = function () {
     }
 };
 
+// Draws the gems
 Gem.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -245,47 +257,50 @@ Gem.prototype.pickColor = function () {
     return gemColors[randomColor];
 };
 
+// Sets a random position for the gems
 Gem.prototype.set_random_x_y = function () {
     set_random_x_y(this);
 };
-var set_random_x_y = function (obj, array_x, array_y){
-    if(typeof array_x == 'undefined') {
+var set_random_x_y = function (obj, array_x, array_y) {
+    if (typeof array_x == 'undefined') {
         array_x = [0, 100, 200, 300, 400];
     }
-    if(typeof array_y == 'undefined') {
+    if (typeof array_y == 'undefined') {
         array_y = [60, 145, 230];
     }
     obj.x = random(array_x);
     obj.y = random(array_y);
-    function random(arr){
+    function random(arr) {
         return arr[Math.floor(Math.random() * arr.length)];
     }
 };
 
 
-
 /*****************************
  Rock
  *****************************/
-
+// The rock which blocks the player and makes it harder for him to get to the water
 var Rock = function () {
     this.sprite = 'images/Rock.png';
     this.set_random_x_y();
 };
 
+// Updates the position of the rock
 Rock.prototype.update = function () {
     // If rock and gem are in the exact same position, rock will get a new position
-    for(var i=0; i<gem.length; i++) {
+    for (var i = 0; i < gem.length; i++) {
         if (this.x === gem[i].x && this.y === gem[i].y) {
             set_random_x_y(this);
         }
     }
 };
 
+// Draws the rock
 Rock.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Sets the rock at random position
 Rock.prototype.set_random_x_y = function () {
     set_random_x_y(this);
 };
@@ -295,19 +310,22 @@ Rock.prototype.set_random_x_y = function () {
  Star
  *****************************/
 
-
+// Function for the star, the player can collect
 var Star = function () {
     this.sprite = 'images/Star.png';
     this.set_random_x_y();
 };
 
+// Updates the position of the stars
 Star.prototype.update = function () {
-    for(var i=0; i<rock.length; i++) {
+    // Prevents that the star spawns in the same position as the rock
+    for (var i = 0; i < rock.length; i++) {
         if (this.x === rock[i].x && this.y === rock[i].y) {
             set_random_x_y(this);
         }
     }
-    if(this.x === player.x && this.y === player.y) {
+    // Adds score and removes star when player collects it
+    if (this.x === player.x && this.y === player.y) {
         player.score += 700;
         if (star.length > 0) {
             star.pop();
@@ -315,20 +333,24 @@ Star.prototype.update = function () {
     }
 };
 
+// Draws the star
 Star.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+// Spawns star in random position
 Star.prototype.set_random_x_y = function () {
     set_random_x_y(this);
 };
 
+// Variables for gems, player, bugs, rock and star
 var gem = [new Gem()];
 var allEnemies = [new Enemy(60), new Enemy(60), new Enemy(145), new Enemy(230)];
 var player = new Player(200, 400);
 var rock = [new Rock()];
 var star = [new Star()];
 
+// Player keyboard inputs
 document.addEventListener('keyup', function (e) {
     var allowedKeys = {
         37: 'left',
@@ -336,11 +358,13 @@ document.addEventListener('keyup', function (e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+// Counts the number of  bugs in the game
 var enemyCount = allEnemies.length;
+
+// Appends hearts symbolizing the lifes of the player
 $("#hearts").append('<img class="hearts-img first" src="images/Heart.png" alt="hearts">', '<img class="hearts-img second" src="images/Heart.png" alt="hearts">', '<img class="hearts-img third" src="images/Heart.png" alt="hearts">');
 
 

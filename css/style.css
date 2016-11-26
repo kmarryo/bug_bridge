@@ -7,6 +7,7 @@ body {
     text-align: center;
     position: relative;
     font-family: 'Share', cursive;
+    margin-bottom: 10rem;
 }
 /* Helper */
 
@@ -43,7 +44,7 @@ h2 {
 
 .overlay-inner, .congrats {
     width: 50%;
-    height: 25vh;
+    padding: 2rem;
     margin: 0 auto;
     transform: translateY(50%);
     background-color: #739cff;
@@ -126,6 +127,7 @@ h2 {
 
 #chars {
     max-width: 1000px;
+    min-width: 500px;
     margin: 0 auto;
 }
 
@@ -140,9 +142,9 @@ h2 {
     background-color: #A961FF;
     border-color: #fff;
     color: #fff;
-    -webkit-box-shadow: 2px 3px 20px 0px rgba(0,0,0,0.66);
-    -moz-box-shadow: 2px 3px 20px 0px rgba(0,0,0,0.66);
-    box-shadow: 2px 3px 20px 0px rgba(0,0,0,0.66);
+    -webkit-box-shadow: 2px 3px 20px 0 rgba(0,0,0,0.66);
+    -moz-box-shadow: 2px 3px 20px 0 rgba(0,0,0,0.66);
+    box-shadow: 2px 3px 20px 0 rgba(0,0,0,0.66);
 }
 
 .keep-playing {
