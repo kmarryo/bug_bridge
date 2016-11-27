@@ -1,3 +1,5 @@
+'use strict';
+
 /*****************************
  ******************************
  CONSTRUCTOR FUNCTIONS
@@ -47,6 +49,9 @@ var Player = function (x, y) {
 
 // Updates the position and score of the player
 Player.prototype.update = function () {
+    function removeHearts(life) {
+        $(life).fadeOut(1000);
+    }
     // Sets player back to starting point when he reaches the water
     if (this.y <= 0) {
         this.x = 200;
@@ -87,11 +92,6 @@ Player.prototype.update = function () {
         // Counter when player is hit. On hit the displayed hearts decrease by one. If he is hit three times, the player dies.
         this.hitCounter++;
         var gameOver = this.hitCounter > 2;
-
-        function removeHearts(life) {
-            $(life).fadeOut(1000);
-        }
-
         if (this.hitCounter === 1) {
             removeHearts(".third");
         } else if (this.hitCounter === 2) {
@@ -366,5 +366,3 @@ var enemyCount = allEnemies.length;
 
 // Appends hearts symbolizing the lifes of the player
 $("#hearts").append('<img class="hearts-img first" src="images/Heart.png" alt="hearts">', '<img class="hearts-img second" src="images/Heart.png" alt="hearts">', '<img class="hearts-img third" src="images/Heart.png" alt="hearts">');
-
-
